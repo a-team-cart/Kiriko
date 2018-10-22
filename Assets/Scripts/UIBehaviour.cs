@@ -7,20 +7,14 @@ public class UIBehaviour : MonoBehaviour {
 
 //UI variables
 
-//gravity
-public float maxGravity;
-public float minGravity;
-
-//instatiated/destroyed objects
-public int maxObjects;
-public int minObjects;
-public int[] objects;
-
 // player variables;
-public float playerXPos;
-public float playerYPos;
-public float playerRadius;
+public Vector2 m_playerPos;
+public float m_playerRadius;
 
+// time variables
+public float m_timeDeltaTrack;
+public float[] m_objectsTimeDelta;
+public bool m_timePassing;
 
 
 	// Use this for initialization
