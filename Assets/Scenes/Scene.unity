@@ -556,9 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEuler: 0
   meshes:
-  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 4300000, guid: b451a052397f03c4f8a04d915d1c0492, type: 3}
   material: {fileID: 2100000, guid: a0427cf339e5891468d5f2b433b2d44a, type: 2}
   maxDepth: 2
   childScale: 0.5
