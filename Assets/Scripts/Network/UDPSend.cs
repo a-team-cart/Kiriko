@@ -49,15 +49,17 @@ public class UDPSend : MonoBehaviour
 
         // Define network params
         IP = "127.0.0.1";
-        port = 8001;
+
+        if (port <= 0)
+            port = 8001;
 
         // Define remote points
         remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), port);
         client = new UdpClient();
 
         // Debug status
-        print("Sending to " +IP + " : " +port);
-        print("Testing: nc - lu " +IP + " : " +port);
+        print("Sending to " + IP + " : " + port);
+        print("Testing: nc - lu " + IP + " : " + port);
         sendString("jt");
     }
 
@@ -70,14 +72,14 @@ public class UDPSend : MonoBehaviour
             {
                 text = Console.ReadLine();
 
-                if (text != "")
-                {
-                    // Encode data using the UTF8 encoding to binary format.
-                    byte[] data = Encoding.UTF8.GetBytes(text);
+                //if (text != "")
+                //{
+                // Encode data using the UTF8 encoding to binary format.
+                byte[] data = Encoding.UTF8.GetBytes(text);
 
-                    // Send the text to the remote client.
-                    client.Send(data, data.Length, remoteEndPoint);
-                }
+                // Send the text to the remote client.
+                client.Send(data, data.Length, remoteEndPoint);
+                //}
             } while (text != "");
         }
         catch (Exception err)
@@ -92,14 +94,14 @@ public class UDPSend : MonoBehaviour
     {
         try
         {
-            if (message != "")
-            {
+            //if (!string.IsNullOrEmpty(message))
+            //{
                 // Encode data using the UTF8 encoding to binary format.
                 byte[] data = Encoding.UTF8.GetBytes(message);
 
                 // Send the message to the remote client.
                 client.Send(data, data.Length, remoteEndPoint);
-            }
+            //}
         }
         catch (Exception err)
         {
@@ -107,9 +109,18 @@ public class UDPSend : MonoBehaviour
         }
     }
 
+    public void SendData(object data)
+    {
+        var stringData = data.ToString();
+        if (!string.IsNullOrEmpty(stringData))
+        {
+            strMessage = stringData;
+        }
+    }
+
     void Update()
     {
         //send test string on update to see if max updates consistently
-        sendString("woahboy");
+        sendString(strMessage);
     }
 }
