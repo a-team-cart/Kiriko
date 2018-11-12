@@ -19,9 +19,9 @@ public class worldManager : MonoBehaviour {
 
 	//instantiating stuff
 	public Rigidbody cubeBody;
-	public int maxNumberOfObjects = 100;
+	public int maxNumberOfObjects = 20;
 	public Rigidbody[] instantiatedObjects;
-	public List<Rigidbody> points = new List<Rigidbody>();
+	public List<InstantiatedObject> instancedObjects = new List<InstantiatedObject>();
 
 	//timescale
 	public float timeModifier;
@@ -33,8 +33,7 @@ public class worldManager : MonoBehaviour {
 	// Use this for initialization
 	// -------------------------------------
 	void Start () {
-		//array resize
-		
+
 
 		//store original location (for relocate)
 		originalPosition = m_VRplayerPos;
@@ -55,6 +54,8 @@ public class worldManager : MonoBehaviour {
 
 		//changetime
 		changeTimeValue();
+
+		Resize();
 		
 	}
 
@@ -87,6 +88,23 @@ public class worldManager : MonoBehaviour {
         {
             instantiatedObjects[i] = Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
         }
+	}
+
+	//list function
+	private void Resize() {
+		if (maxNumberOfObjects <= 0) {
+			instancedObjects.Clear();
+		} else {
+			while (instancedObjects.Count > maxNumberOfObjects) {
+				instancedObjects.RemoveAt(instancedObjects.Count-1);
+				print(instancedObjects.Count);
+			}
+			while (instancedObjects.Count < maxNumberOfObjects){
+				instancedObjects.Add(new InstantiatedObject(50,50,cubeBody.position,cubeBody));
+				Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
+				print(instancedObjects.Count);
+			}
+		}
 	}
 
 	// Function to relocate player /reset to its original location when it started
