@@ -428,8 +428,9 @@ MonoBehaviour:
   m_dynamicObjects: []
   m_playerInSpace: 0
   gravityShift: 0
-  cubeBody: {fileID: 1021124327}
+  cubeBody: {fileID: 1021124326}
   maxNumberOfObjects: 100
+  objectIndex: 0
   instantiatedObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -531,6 +532,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  instancedObjects: []
   timeModifier: 0
   originalPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &644857961

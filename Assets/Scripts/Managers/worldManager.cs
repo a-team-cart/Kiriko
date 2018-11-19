@@ -18,10 +18,11 @@ public class worldManager : MonoBehaviour {
 	public float gravityShift = 0f;
 
 	//instantiating stuff
-	public Rigidbody cubeBody;
+	public GameObject cubeBody;
 	public int maxNumberOfObjects = 20;
+	public int objectIndex;
 	public Rigidbody[] instantiatedObjects;
-	public List<InstantiatedObject> instancedObjects = new List<InstantiatedObject>();
+	public List<GameObject> instancedObjects = new List<GameObject>();
 
 	//timescale
 	public float timeModifier;
@@ -34,12 +35,17 @@ public class worldManager : MonoBehaviour {
 	// -------------------------------------
 	void Start () {
 
+		for (int i = 0; i < maxNumberOfObjects; i++) {
+		GameObject obj = (GameObject)Instantiate(cubeBody);
+		obj.SetActive(false); 
+		instancedObjects.Add(obj);
+		}
 
 		//store original location (for relocate)
 		originalPosition = m_VRplayerPos;
 
 		//instantiate
-		instantiateObjects();
+		// instantiateObjects();
 		
 	}
 	
@@ -55,7 +61,17 @@ public class worldManager : MonoBehaviour {
 		//changetime
 		changeTimeValue();
 
-		Resize();
+		// Resize();
+
+		for (int i = 0; i < maxNumberOfObjects; i++) {
+			for(int j = 0; j < objectIndex; j++){
+				instancedObjects[j].SetActive(true); 
+			}
+		}
+
+		for(int i = objectIndex; i < maxNumberOfObjects;i++){
+			instancedObjects[i].SetActive(false);
+		}
 		
 	}
 
@@ -86,25 +102,37 @@ public class worldManager : MonoBehaviour {
 	private void instantiateObjects() {
         for (int i = 0; i < maxNumberOfObjects; i++) 
         {
-            instantiatedObjects[i] = Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
+            // instantiatedObjects[i] = Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
         }
 	}
 
 	//list function
-	private void Resize() {
-		if (maxNumberOfObjects <= 0) {
-			instancedObjects.Clear();
-		} else {
-			while (instancedObjects.Count > maxNumberOfObjects) {
-				instancedObjects.RemoveAt(instancedObjects.Count-1);
-				print(instancedObjects.Count);
-			}
-			while (instancedObjects.Count < maxNumberOfObjects){
-				instancedObjects.Add(new InstantiatedObject(50,50,cubeBody.position,cubeBody));
-				Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
-				print(instancedObjects.Count);
-			}
+	// private void Resize() {
+	// 	if (maxNumberOfObjects <= 0) {
+	// 		instancedObjects.Clear();
+	// 	} else {
+	// 		while (instancedObjects.Count > maxNumberOfObjects) {
+	// 			instancedObjects.RemoveAt(instancedObjects.Count-1);
+	// 			print(instancedObjects.Count);
+	// 		}
+	// 		while (instancedObjects.Count < maxNumberOfObjects){
+	// 			instancedObjects.Add(new InstantiatedObject(50,50,cubeBody.position,cubeBody));
+	// 			Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
+	// 			print(instancedObjects.Count);
+	// 		}
+	// 	}
+	// }
+
+	public GameObject GetPooledObject() {
+	//1
+	for (int i = 0; i < instancedObjects.Count; i++) {
+	//2
+		if (!instancedObjects[i].activeInHierarchy) {
+		return instancedObjects[i];
 		}
+	}
+	//3   
+	return null;
 	}
 
 	// Function to relocate player /reset to its original location when it started
