@@ -6,11 +6,11 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
 
     public UDPSend UDPScript;
-    private InputManager _inputMan;
+    private inputManager _inputMan;
 
     // Use this for initialization
     void Start () {
-        _inputMan = GetComponent<InputManager>();
+        _inputMan = GetComponent<inputManager>();
     }
 
     // Update is called once per frame

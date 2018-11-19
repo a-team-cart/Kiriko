@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -121,8 +121,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 155577160}
-  - component: {fileID: 155577161}
   - component: {fileID: 155577162}
+  - component: {fileID: 155577161}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -163,15 +163,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 155577159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cd0959a818effa4692714685133d9a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7730825a9ffef8b498fdcedee29de852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_saturation: 10
+  m_saturation: 0
   m_gravity: 0
-  m_timeSpeed: 0.2
+  m_timeSpeed: 0
   m_lightState: 0
   m_lightIntensity: 0
-  m_soundPitch: 0.5
+  m_soundPitch: 0
   m_soundScapeIndex: 
   m_normalIntensity: 0
   m_spawnObjectIndex: 
