@@ -35,12 +35,12 @@ public class terminalManager : MonoBehaviour {
 	// -------------------------------------
 	private void catchSliderValues() {
 		// Screen the values from input manager
-		m_effects[0].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_saturation;
-		m_effects[1].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_gravity;
-		m_effects[2].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_timeSpeed;
-		m_effects[3].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_lightIntensity;
-		m_effects[4].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_soundPitch;
-		m_effects[5].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_normalIntensity;
+		m_effects[0].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_objectSpawn;
+		m_effects[1].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_objectScale;
+		m_effects[2].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_objectRotation;
+		m_effects[3].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_objectMaterial;
+		m_effects[4].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_objectGravity;
+		m_effects[5].GetComponent<Slider>().value = m_InputManager.GetComponent<inputManager>().m_lightSaturation;
 	}
 
 
