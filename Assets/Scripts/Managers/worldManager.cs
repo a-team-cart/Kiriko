@@ -19,33 +19,33 @@ public class worldManager : MonoBehaviour {
 
 	//instantiating stuff
 	public GameObject cubeBody;
-	public int maxNumberOfObjects = 20;
-	public int objectIndex;
-	public Rigidbody[] instantiatedObjects;
-	public List<GameObject> instancedObjects = new List<GameObject>();
+	public int m_maxNumberOfObjects = 20;
+	public int m_objectIndex;
+	public List<GameObject> m_instancedObjects = new List<GameObject>();
+
+	//chaning object porperties
+	public float m_objectSize;
+	public Material m_objectShader;
+
+	//lights
+	public GameObject[] m_allOfTheLights;
+	public float m_lightBrightness;
 
 	//timescale
 	public float timeModifier;
 
 	//player relocate
-	public Vector3 originalPosition;
+	public Vector3 m_originalPosition;
 	
 	// -------------------------------------
 	// Use this for initialization
 	// -------------------------------------
 	void Start () {
 
-		for (int i = 0; i < maxNumberOfObjects; i++) {
-		GameObject obj = (GameObject)Instantiate(cubeBody);
-		obj.SetActive(false); 
-		instancedObjects.Add(obj);
-		}
-
-		//store original location (for relocate)
-		originalPosition = m_VRplayerPos;
-
+		//initialize function
+		init();
 		//instantiate
-		// instantiateObjects();
+		instantiateObjects();
 		
 	}
 	
@@ -61,17 +61,12 @@ public class worldManager : MonoBehaviour {
 		//changetime
 		changeTimeValue();
 
-		// Resize();
+		//resize the list
+		Resize();
 
-		for (int i = 0; i < maxNumberOfObjects; i++) {
-			for(int j = 0; j < objectIndex; j++){
-				instancedObjects[j].SetActive(true); 
-			}
-		}
+		//change properties
+		changeObjectProperties();
 
-		for(int i = objectIndex; i < maxNumberOfObjects;i++){
-			instancedObjects[i].SetActive(false);
-		}
 		
 	}
 
@@ -79,6 +74,14 @@ public class worldManager : MonoBehaviour {
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
+
+	private void init(){
+		//store original location (for relocate)
+		m_originalPosition = m_VRplayerPos;
+		//set object size to 1
+		m_objectSize = 1;
+	}
+
 	// Function to change the weather
 	private void changeWeather() {
 
@@ -100,35 +103,58 @@ public class worldManager : MonoBehaviour {
 
 	// Function to initiate new dynamic objects
 	private void instantiateObjects() {
-        for (int i = 0; i < maxNumberOfObjects; i++) 
-        {
-            // instantiatedObjects[i] = Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
-        }
+			for (int i = 0; i < m_maxNumberOfObjects; i++) {
+			GameObject obj = (GameObject)Instantiate(cubeBody);
+			obj.SetActive(false); 
+			m_instancedObjects.Add(obj);
+		}
 	}
 
-	//list function
-	// private void Resize() {
-	// 	if (maxNumberOfObjects <= 0) {
-	// 		instancedObjects.Clear();
-	// 	} else {
-	// 		while (instancedObjects.Count > maxNumberOfObjects) {
-	// 			instancedObjects.RemoveAt(instancedObjects.Count-1);
-	// 			print(instancedObjects.Count);
-	// 		}
-	// 		while (instancedObjects.Count < maxNumberOfObjects){
-	// 			instancedObjects.Add(new InstantiatedObject(50,50,cubeBody.position,cubeBody));
-	// 			Instantiate(cubeBody, cubeBody.position, Quaternion.identity);
-	// 			print(instancedObjects.Count);
-	// 		}
-	// 	}
-	// }
+	//list function that adds or removes object
+	private void Resize() {
+		//constain the list to the max number of object
+		m_objectIndex = Mathf.Clamp(m_objectIndex, 0, m_maxNumberOfObjects);
 
+		for (int i = 0; i < m_maxNumberOfObjects; i++) {
+			for(int j = 0; j < m_objectIndex; j++){
+				m_instancedObjects[j].SetActive(true); 
+			}
+		}
+
+		for(int i = m_objectIndex; i < m_maxNumberOfObjects;i++){
+			m_instancedObjects[i].SetActive(false);
+			m_instancedObjects[i].transform.localScale = new Vector3(Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f));
+		}
+	}
+
+	//change object properties
+	private void changeObjectProperties(){
+		//constrain the object size value
+		m_objectSize = Mathf.Clamp(m_objectSize, 0.0f,100.0f);
+
+		for(int i = 0; i < m_instancedObjects.Count; i++){
+			m_instancedObjects[i].transform.localScale = new Vector3(m_objectSize,m_objectSize,m_objectSize);
+		}
+
+	}
+
+	//fetch all lights in scene
+	private void fetchAllLights(){
+		
+	}
+
+	//change light properties
+	private void changeLightProperties(){
+
+	}
+
+	//return a polled game objects
 	public GameObject GetPooledObject() {
 	//1
-	for (int i = 0; i < instancedObjects.Count; i++) {
+	for (int i = 0; i < m_instancedObjects.Count; i++) {
 	//2
-		if (!instancedObjects[i].activeInHierarchy) {
-		return instancedObjects[i];
+		if (!m_instancedObjects[i].activeInHierarchy) {
+		return m_instancedObjects[i];
 		}
 	}
 	//3   
@@ -138,7 +164,7 @@ public class worldManager : MonoBehaviour {
 	// Function to relocate player /reset to its original location when it started
 	private void relocatePlayer() {
 		if(Input.GetKeyDown("space")){
-			m_VRplayerPos = originalPosition;
+			m_VRplayerPos = m_originalPosition;
 		}
 	}
 
