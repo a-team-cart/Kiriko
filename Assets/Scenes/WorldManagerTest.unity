@@ -524,6 +524,8 @@ MonoBehaviour:
   m_playerInSpace: 0
   gravityShift: 0
   cubeBody: {fileID: 1021124326}
+  cubeBodyFractured: {fileID: 1054814681067280, guid: 80b77c444c67a49449930bd0e6f06e42,
+    type: 2}
   m_maxNumberOfObjects: 100
   m_objectIndex: 0
   m_instancedObjects: []
@@ -531,6 +533,13 @@ MonoBehaviour:
   m_objectShader: {fileID: 0}
   m_allOfTheLights: []
   m_lightBrightness: 0
+  m_lightHue: 0
+  m_lightSaturation: 0
+  m_lightValue: 0
+  m_lightControlHue: 0
+  m_lightControlSaturation: 0
+  m_lightControlValue: 0
+  m_lightColor: {r: 0, g: 0, b: 0, a: 0}
   timeModifier: 0
   m_originalPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &644857961

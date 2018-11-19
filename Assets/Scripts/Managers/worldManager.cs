@@ -19,6 +19,8 @@ public class worldManager : MonoBehaviour {
 
 	//instantiating stuff
 	public GameObject cubeBody;
+	public GameObject cubeBodyFractured;
+	private bool[] objectIsDestroyed;
 	public int m_maxNumberOfObjects = 20;
 	public int m_objectIndex;
 	public List<GameObject> m_instancedObjects = new List<GameObject>();
@@ -100,6 +102,8 @@ public class worldManager : MonoBehaviour {
 		m_originalPosition = m_VRplayerPos;
 		//set object size to 1
 		m_objectSize = 1;
+
+		objectIsDestroyed = new bool[m_maxNumberOfObjects];
 	}
 
 	// Function to change the weather
@@ -134,16 +138,26 @@ public class worldManager : MonoBehaviour {
 	private void Resize() {
 		//constain the list to the max number of object
 		m_objectIndex = Mathf.Clamp(m_objectIndex, 0, m_maxNumberOfObjects);
+		int currentObjectIndex = m_objectIndex;
 
 		for (int i = 0; i < m_maxNumberOfObjects; i++) {
 			for(int j = 0; j < m_objectIndex; j++){
+				objectIsDestroyed[j] = false;
 				m_instancedObjects[j].SetActive(true); 
 			}
 		}
 
 		for(int i = m_objectIndex; i < m_maxNumberOfObjects;i++){
+			// objectIsDestroyed[i] = false;
 			m_instancedObjects[i].SetActive(false);
 			m_instancedObjects[i].transform.localScale = new Vector3(Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f));
+			if(objectIsDestroyed[i] == false){
+				objectIsDestroyed[i] = true;
+				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
+				GameObject brokenObj = (GameObject)Instantiate(cubeBodyFractured, new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), Quaternion.identity);
+				Destroy(brokenObj, 2.0f);
+				
+			}
 		}
 	}
 
@@ -164,8 +178,8 @@ public class worldManager : MonoBehaviour {
 		m_allOfTheLightsLightComponent = new Light[m_allOfTheLights.Length];
 
 		for(int i = 0; i < m_allOfTheLights.Length; i ++){
-		m_allOfTheLightsLightComponent[i] = m_allOfTheLights[i].GetComponent<Light>();
-		Debug.Log(m_allOfTheLights);
+			m_allOfTheLightsLightComponent[i] = m_allOfTheLights[i].GetComponent<Light>();
+			// Debug.Log(m_allOfTheLights);
 		}
 
 		
