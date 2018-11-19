@@ -29,6 +29,7 @@ public class worldManager : MonoBehaviour {
 
 	//lights
 	public GameObject[] m_allOfTheLights;
+	Light[] m_allOfTheLightsComponents;
 	public float m_lightBrightness;
 
 	//timescale
@@ -36,6 +37,15 @@ public class worldManager : MonoBehaviour {
 
 	//player relocate
 	public Vector3 m_originalPosition;
+
+	// -------------------------------------
+	// Use this for fetching components
+	// -------------------------------------
+	void Awake () {
+		//fetch all lights and store them
+		fetchAllLights();
+		
+	}
 	
 	// -------------------------------------
 	// Use this for initialization
@@ -66,6 +76,9 @@ public class worldManager : MonoBehaviour {
 
 		//change properties
 		changeObjectProperties();
+
+		//change light properties
+		changeLightProperties();
 
 		
 	}
@@ -140,12 +153,24 @@ public class worldManager : MonoBehaviour {
 
 	//fetch all lights in scene
 	private void fetchAllLights(){
+		m_allOfTheLights = GameObject.FindGameObjectsWithTag("Light");
+		m_allOfTheLightsComponents = new Light[m_allOfTheLights.Length];
+
+		for(int i = 0; i < m_allOfTheLights.Length; i ++){
+		m_allOfTheLightsComponents[i] = m_allOfTheLights[i].GetComponent<Light>();
+		Debug.Log(m_allOfTheLights);
+		}
+
 		
 	}
 
 	//change light properties
 	private void changeLightProperties(){
-
+		//constrain the light intensity
+		m_lightBrightness = Mathf.Clamp(m_lightBrightness, 0.0f,100.0f);
+		for(int i = 0; i < m_allOfTheLightsComponents.Length; i++){
+			m_allOfTheLightsComponents[i].intensity = m_lightBrightness;
+		}
 	}
 
 	//return a polled game objects
