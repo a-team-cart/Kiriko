@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MidiJack;
 
 public class inputManager : MonoBehaviour
 {
@@ -49,7 +50,12 @@ public class inputManager : MonoBehaviour
     // Fetching data from the inputs
     private void fetchData()
     {
-
+        m_saturation = MidiMaster.GetKnob(14);
+		m_gravity = MidiMaster.GetKnob(15);
+		m_timeSpeed = MidiMaster.GetKnob(16);
+		m_lightIntensity = MidiMaster.GetKnob(3);
+		m_soundPitch = MidiMaster.GetKnob(4);
+		m_normalIntensity = MidiMaster.GetKnob(5);
     }
 
 
