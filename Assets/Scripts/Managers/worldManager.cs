@@ -29,8 +29,15 @@ public class worldManager : MonoBehaviour {
 
 	//lights
 	public GameObject[] m_allOfTheLights;
-	Light[] m_allOfTheLightsComponents;
+	Light[] m_allOfTheLightsLightComponent;
 	public float m_lightBrightness;
+	public float m_lightHue;
+	public float m_lightSaturation;
+	public float m_lightValue;
+	public float m_lightControlHue;
+	public float m_lightControlSaturation;
+	public float m_lightControlValue;
+	public Color m_lightColor;
 
 	//timescale
 	public float timeModifier;
@@ -110,8 +117,8 @@ public class worldManager : MonoBehaviour {
 
 	// Function to change the time of motion
 	private void changeTimeValue() {
-		timeModifier = Mathf.Clamp(timeModifier, 1.0f,10.0f);
-		Time.timeScale = Time.timeScale * timeModifier;
+		timeModifier = Mathf.Clamp(timeModifier, 1.0f,20.0f);
+		Time.timeScale = timeModifier;
 	}
 
 	// Function to initiate new dynamic objects
@@ -154,10 +161,10 @@ public class worldManager : MonoBehaviour {
 	//fetch all lights in scene
 	private void fetchAllLights(){
 		m_allOfTheLights = GameObject.FindGameObjectsWithTag("Light");
-		m_allOfTheLightsComponents = new Light[m_allOfTheLights.Length];
+		m_allOfTheLightsLightComponent = new Light[m_allOfTheLights.Length];
 
 		for(int i = 0; i < m_allOfTheLights.Length; i ++){
-		m_allOfTheLightsComponents[i] = m_allOfTheLights[i].GetComponent<Light>();
+		m_allOfTheLightsLightComponent[i] = m_allOfTheLights[i].GetComponent<Light>();
 		Debug.Log(m_allOfTheLights);
 		}
 
@@ -168,8 +175,14 @@ public class worldManager : MonoBehaviour {
 	private void changeLightProperties(){
 		//constrain the light intensity
 		m_lightBrightness = Mathf.Clamp(m_lightBrightness, 0.0f,100.0f);
-		for(int i = 0; i < m_allOfTheLightsComponents.Length; i++){
-			m_allOfTheLightsComponents[i].intensity = m_lightBrightness;
+		m_lightControlHue = Mathf.Clamp(m_lightControlHue, 0.0f,255.0f);
+		m_lightControlSaturation = Mathf.Clamp(m_lightControlSaturation, 0.0f,255.0f);
+		m_lightControlValue = Mathf.Clamp(m_lightControlValue, 0.0f,255.0f);
+
+		for(int i = 0; i < m_allOfTheLightsLightComponent.Length; i++){
+			Color.RGBToHSV(m_allOfTheLightsLightComponent[i].color, out m_lightHue, out m_lightSaturation, out m_lightValue);
+			m_allOfTheLightsLightComponent[i].color = new Color(m_lightControlHue,m_lightControlSaturation,m_lightControlValue);
+			m_allOfTheLightsLightComponent[i].intensity = m_lightBrightness;
 		}
 	}
 
