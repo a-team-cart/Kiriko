@@ -22,12 +22,12 @@ public class inputManager : MonoBehaviour
     public float m_objectRotation;                              // Rotation of objects in the scene
     public float m_objectGravity;                               // Gravity affecting the objects in the scene
 
-    public float m_soundOne;                                    // Sound value 1
-    public float m_soundTwo;                                    // Sound value 2
-    public float m_soundThree;                                  // Sound value 3
-    public float m_soundFour;                                   // Sound value 4
-    public float m_soundFive;                                   // Sound value 5
-    public float m_soundSix;                                    // Sound value 6
+    public float m_soundPitch;                                  // Pitch of selected samples
+    public float m_soundTimescale;                              // Speed of selected samples
+    public float m_soundReverbDecay;                            // Decay time for reverb/delay effects
+    public float m_soundFeedback;                               // Intensity of feedback
+    public float m_soundFilter;                                 // Filter values for feedback
+    public float m_soundSlide;                                  // Slide effect for delay loop
 
     public float m_resetRowOne;                                 // Reset the row of slider one
     public float m_resetRowTwo;                                 // Reset the row of slider two
@@ -83,12 +83,12 @@ public class inputManager : MonoBehaviour
 		m_lightValue = MidiMaster.GetKnob(22);
 
         // Sound Data
-		m_soundOne = MidiMaster.GetKnob(3);
-		m_soundTwo = MidiMaster.GetKnob(4);
-        m_soundThree = MidiMaster.GetKnob(5);
-        m_soundFour = MidiMaster.GetKnob(6);
-        m_soundFive = MidiMaster.GetKnob(7);
-        m_soundSix = MidiMaster.GetKnob(8);
+        m_soundPitch = MidiMaster.GetKnob(3);
+        m_soundTimescale = MidiMaster.GetKnob(4);
+        m_soundReverbDecay = MidiMaster.GetKnob(5);
+        m_soundFeedback = MidiMaster.GetKnob(6);
+        m_soundFilter = MidiMaster.GetKnob(7);
+        m_soundSlide = MidiMaster.GetKnob(8);
 
         // Post Processing Data
         m_PPsaturation = MidiMaster.GetKnob(9);
