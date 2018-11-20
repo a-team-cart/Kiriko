@@ -155,7 +155,7 @@ public class worldManager : MonoBehaviour {
 				objectIsDestroyed[i] = true;
 				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
 				GameObject brokenObj = (GameObject)Instantiate(cubeBodyFractured, new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), Quaternion.identity);
-				Destroy(brokenObj, 2.0f);
+				Destroy(brokenObj, 50.0f);
 				
 			}
 		}
