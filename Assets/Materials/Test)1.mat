@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Test)1
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 255c0363ea16e104da2b693b71aa4042, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -52,6 +52,30 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_295C2CD_Texture:
+        m_Texture: {fileID: 2800000, guid: ff6bfec87c7518d478fb4229e44a0c0b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_47DD349C_Texture:
+        m_Texture: {fileID: 2800000, guid: f7f651d52503bad46a8819c046945529, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_77CA0592_Texture:
+        m_Texture: {fileID: 2800000, guid: ba37e918dfe6523499153c440556bb00, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_A45E0D6C_Texture:
+        m_Texture: {fileID: 2800000, guid: db38bded2503d81499ad8dd6175dce4d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_A4DA4715_Texture:
+        m_Texture: {fileID: 2800000, guid: 7bc908ff73baa8a439e3dbe9ad2fc466, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_F5BDB5CD_Texture:
+        m_Texture: {fileID: 2800000, guid: 397451794886fe846a8e0f9188784984, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

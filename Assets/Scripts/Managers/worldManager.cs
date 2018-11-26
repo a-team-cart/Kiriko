@@ -108,7 +108,7 @@ public class worldManager : MonoBehaviour {
 		//store original location (for relocate)
 		m_originalPosition = m_VRplayerPos;
 		//set object size to 1
-		m_objectSize = 1;
+		m_objectSize = 30;
 
 		objectIsDestroyed = new bool[m_maxNumberOfObjects];
 	}
