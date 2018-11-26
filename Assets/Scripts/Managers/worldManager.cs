@@ -173,7 +173,11 @@ public class worldManager : MonoBehaviour {
 				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
 				GameObject brokenObj = (GameObject)Instantiate(mineralFractured[Random.Range (0,mineralFractured.Length)], new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), m_instancedObjects[i].transform.rotation);
 				brokenObj.transform.localScale =  m_instancedObjects[i].transform.localScale/5;
-				brokenObj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+				// brokenObj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+				Renderer[] children = brokenObj.GetComponentsInChildren<Renderer> ();
+				foreach(Renderer rend in children){
+					rend.material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+				}
 				Destroy(brokenObj, 10.0f);
 				
 			}

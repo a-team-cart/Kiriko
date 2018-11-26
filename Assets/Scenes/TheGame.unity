@@ -16331,7 +16331,7 @@ MonoBehaviour:
   mineral:
   - {fileID: 1885817691197712, guid: 7ca81c416bcf4b04ab589b5ae1d44a19, type: 2}
   mineralFractured:
-  - {fileID: 1974211425351620, guid: 22eb3ad76d62f404889ee2bc175c2570, type: 2}
+  - {fileID: 1656926502512714, guid: 22eb3ad76d62f404889ee2bc175c2570, type: 2}
   m_maxNumberOfObjects: 100
   m_objectIndex: 0
   m_instancedObjects: []
