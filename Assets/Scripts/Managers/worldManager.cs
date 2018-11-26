@@ -140,7 +140,7 @@ public class worldManager : MonoBehaviour {
 			float xRange = Random.Range(-m_spawnRange,m_spawnRange);
 			float yRange = Random.Range(-m_spawnRange,m_spawnRange);
 			float zRange = Random.Range(-m_spawnRange,m_spawnRange);
-			GameObject obj = (GameObject)Instantiate(mineral[Random.Range (0,mineral.Length)], new Vector3(xRange,yRange,zRange), Quaternion.identity);
+			GameObject obj = (GameObject)Instantiate(mineral[Random.Range (0,mineral.Length)], new Vector3(xRange,yRange,zRange), Random.rotation);
 			obj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
 			obj.GetComponent<Rigidbody>().AddTorque(transform.forward * thrust);
 			obj.SetActive(false); 
