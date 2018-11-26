@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028364, g: 0.22571398, b: 0.30692267, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3882,6 +3882,68 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834579365}
   m_CullTransparentMesh: 0
+--- !u!1 &1856910224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856910226}
+  - component: {fileID: 1856910225}
+  m_Layer: 0
+  m_Name: World Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1856910225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856910224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c361f0784c814441cb62ff2e4657dfdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_VRplayerPos: {x: 0, y: 0, z: 0}
+  m_dynamicObjects: []
+  m_playerInSpace: 0
+  gravityShift: 0
+  cubeBody: {fileID: 0}
+  cubeBodyFractured: {fileID: 0}
+  m_maxNumberOfObjects: 20
+  m_objectIndex: 0
+  m_instancedObjects: []
+  m_objectSize: 0
+  m_objectShader: {fileID: 0}
+  m_allOfTheLights: []
+  m_lightBrightness: 0
+  m_lightHue: 0
+  m_lightSaturation: 0
+  m_lightValue: 0
+  m_lightControlHue: 0
+  m_lightControlSaturation: 0
+  m_lightControlValue: 0
+  m_lightColor: {r: 0, g: 0, b: 0, a: 0}
+  timeModifier: 0
+  m_originalPosition: {x: 0, y: 0, z: 0}
+--- !u!4 &1856910226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856910224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3385412, y: -0.010354791, z: 3.3755152}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880344809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,18 +4124,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7730825a9ffef8b498fdcedee29de852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_saturation: 0
-  m_gravity: 0
-  m_timeSpeed: 0
-  m_lightState: 0
+  m_PPsaturation: 0
+  m_PPmotionBlur: 0
+  m_PPvignette: 0
   m_lightIntensity: 0
+  m_lightHue: 0
+  m_lightSaturation: 0
+  m_lightValue: 0
+  m_objectScale: 0
+  m_objectMaterial: 0
+  m_objectSpawn: 0
+  m_objectRotation: 0
+  m_objectGravity: 0
   m_soundPitch: 0
-  m_soundScapeIndex: 
-  m_normalIntensity: 0
-  m_spawnObjectIndex: 
-  m_noiseIntensity: 0
-  m_chromaticAberration: 0
-  m_stormState: 0
+  m_soundTimescale: 0
+  m_soundReverbDecay: 0
+  m_soundFeedback: 0
+  m_soundFilter: 0
+  m_soundSlide: 0
+  m_resetRowOne: 0
+  m_resetRowTwo: 0
+  m_resetRowThree: 0
+  m_resetRowFour: 0
+  m_resetRowFive: 0
+  m_resetRowSix: 0
+  m_resetRowSeven: 0
+  m_resetRowEight: 0
+  m_resetRowNine: 0
 --- !u!4 &1991179009
 Transform:
   m_ObjectHideFlags: 0

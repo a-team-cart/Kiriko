@@ -5,6 +5,7 @@ using UnityEngine;
 public class worldManager : MonoBehaviour {
 
 	// public variables --------------------
+	public GameObject m_InputManager;
 	public Vector3 m_VRplayerPos;
 	public GameObject[] m_dynamicObjects;
 	public bool m_playerInSpace;
@@ -18,16 +19,19 @@ public class worldManager : MonoBehaviour {
 	public float gravityShift = 0f;
 
 	//instantiating stuff
-	public GameObject cubeBody;
-	public GameObject cubeBodyFractured;
+	public GameObject m_spawnPosition;
+	public int m_spawnRange = 50;
+	public GameObject[] mineral;
+	public GameObject[] mineralFractured;
 	private bool[] objectIsDestroyed;
-	public int m_maxNumberOfObjects = 20;
+	public int m_maxNumberOfObjects = 100;
 	public int m_objectIndex;
 	public List<GameObject> m_instancedObjects = new List<GameObject>();
+	public float thrust = 1.0f;
 
 	//chaning object porperties
 	public float m_objectSize;
-	public Material m_objectShader;
+	public Material[] m_objectShader;
 
 	//lights
 	public GameObject[] m_allOfTheLights;
@@ -89,6 +93,9 @@ public class worldManager : MonoBehaviour {
 		//change light properties
 		changeLightProperties();
 
+		//midi
+		// attachToMidi();
+
 		
 	}
 
@@ -128,9 +135,14 @@ public class worldManager : MonoBehaviour {
 	// Function to initiate new dynamic objects
 	private void instantiateObjects() {
 			for (int i = 0; i < m_maxNumberOfObjects; i++) {
-			Vector3 randomPos = (Vector3)Random.insideUnitCircle * 10; 	
-			randomPos += cubeBody.transform.position;
-			GameObject obj = (GameObject)Instantiate(cubeBody, randomPos, cubeBody.transform.rotation);
+			// Vector3 randomPos = (Vector3)Random.insideUnitCircle * m_spawnRange; 	
+			// randomPos += m_spawnPosition.transform.position;
+			float xRange = Random.Range(-m_spawnRange,m_spawnRange);
+			float yRange = Random.Range(-m_spawnRange,m_spawnRange);
+			float zRange = Random.Range(-m_spawnRange,m_spawnRange);
+			GameObject obj = (GameObject)Instantiate(mineral[Random.Range (0,mineral.Length)], new Vector3(xRange,yRange,zRange), Quaternion.identity);
+			obj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+			obj.GetComponent<Rigidbody>().AddTorque(transform.forward * thrust);
 			obj.SetActive(false); 
 			m_instancedObjects.Add(obj);
 		}
@@ -145,20 +157,24 @@ public class worldManager : MonoBehaviour {
 		for (int i = 0; i < m_maxNumberOfObjects; i++) {
 			for(int j = 0; j < m_objectIndex; j++){
 				objectIsDestroyed[j] = false;
+				// Vector3 randomPos = (Vector3)Random.insideUnitCircle * m_spawnRange; 
+				// m_instancedObjects[i].transform.position = randomPos;
 				m_instancedObjects[j].SetActive(true); 
+				// m_instancedObjects[j].GetComponent<Rigidbody>().AddTorque(transform.forward * thrust);
 			}
 		}
 
 		for(int i = m_objectIndex; i < m_maxNumberOfObjects;i++){
 			// objectIsDestroyed[i] = false;
 			m_instancedObjects[i].SetActive(false);
-			m_instancedObjects[i].transform.localScale = new Vector3(Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f));
+			// m_instancedObjects[i].transform.localScale = new Vector3(Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f),Random.Range(0.0f, 10.0f));
 			if(objectIsDestroyed[i] == false){
 				objectIsDestroyed[i] = true;
 				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
-				GameObject brokenObj = (GameObject)Instantiate(cubeBodyFractured, new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), m_instancedObjects[i].transform.rotation);
+				GameObject brokenObj = (GameObject)Instantiate(mineralFractured[Random.Range (0,mineralFractured.Length)], new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), m_instancedObjects[i].transform.rotation);
 				brokenObj.transform.localScale =  m_instancedObjects[i].transform.localScale/5;
-				Destroy(brokenObj, 50.0f);
+				brokenObj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+				Destroy(brokenObj, 10.0f);
 				
 			}
 		}
@@ -223,5 +239,60 @@ public class worldManager : MonoBehaviour {
 		}
 	}
 
+	private void attachToMidi(){
+		//gravity
+		// gravityShift = 0f;
+		// m_objectIndex;
+
+		// //chaning object porperties
+		// m_objectSize;
+		// m_objectShader;
+
+		// //lights
+		// m_allOfTheLights;
+		// m_lightBrightness;
+		// m_lightHue;
+		// m_lightSaturation;
+		// m_lightValue;
+		// m_lightControlHue;
+		// m_lightControlSaturation;
+		// m_lightControlValue;
+		// m_lightColor;
+
+		// //timescale
+		// timeModifier;
+
+		//remapped values for midi between 0 & 1
+		
+		//-----object spawn
+		float m_midiObjectIndex = m_InputManager.GetComponent<inputManager>().m_objectSpawn;
+		m_midiObjectIndex = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectIndex);
+		int roundedObjectIndex = Mathf.RoundToInt(m_midiObjectIndex);
+		m_objectIndex = roundedObjectIndex;
+		// Debug.Log(m_objectIndex);
+
+		//-----object scale
+		float m_midiObjectScale = m_InputManager.GetComponent<inputManager>().m_objectScale;
+		m_midiObjectScale = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectScale);
+		// int roundedObjectScale = Mathf.RoundToInt(m_midiObjectScale);
+		m_objectSize = m_midiObjectScale;
+		// Debug.Log(m_objectIndex);
+
+		//-----object gravity
+		float m_midiObjectGravity = m_InputManager.GetComponent<inputManager>().m_objectGravity;
+		m_midiObjectGravity = scale(0.0f,1.0f,-1.0f,1.0f,m_midiObjectGravity);
+		gravityShift = m_midiObjectGravity;
+		// Debug.Log(m_objectIndex);
+
+	}
+
+	float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue){
+	
+		float OldRange = (OldMax - OldMin);
+		float NewRange = (NewMax - NewMin);
+		float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
+	
+		return(NewValue);
+	}
 
 }
