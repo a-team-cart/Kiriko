@@ -1391,6 +1391,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -1458,6 +1459,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534669906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e552b8efa6044a083e0666c2142d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642440665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,7 +2097,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
 --- !u!224 &935596612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3308,6 +3320,83 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1559528564}
   m_CullTransparentMesh: 0
+--- !u!1 &1578995166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578995169}
+  - component: {fileID: 1578995168}
+  - component: {fileID: 1578995167}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1578995167
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1578995166}
+  m_Enabled: 1
+--- !u!20 &1578995168
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1578995166}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 1
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1578995169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1578995166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -216.914, y: 142.37296, z: 2899.1033}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1585393348
 GameObject:
   m_ObjectHideFlags: 0
@@ -4046,7 +4135,7 @@ GameObject:
   - component: {fileID: 1991179007}
   m_Layer: 0
   m_Name: Input Manager
-  m_TagString: Untagged
+  m_TagString: InputManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4062,18 +4151,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7730825a9ffef8b498fdcedee29de852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_saturation: 0
-  m_gravity: 0
-  m_timeSpeed: 0
-  m_lightState: 0
+  m_PPsaturation: 0
+  m_PPmotionBlur: 0
+  m_PPvignette: 0
   m_lightIntensity: 0
+  m_lightHue: 0
+  m_lightSaturation: 0
+  m_lightValue: 0
+  m_objectScale: 0
+  m_objectMaterial: 0
+  m_objectSpawn: 0
+  m_objectRotation: 0
+  m_objectGravity: 0
   m_soundPitch: 0
-  m_soundScapeIndex: 
-  m_normalIntensity: 0
-  m_spawnObjectIndex: 
-  m_noiseIntensity: 0
-  m_chromaticAberration: 0
-  m_stormState: 0
+  m_soundTimescale: 0
+  m_soundReverbDecay: 0
+  m_soundFeedback: 0
+  m_soundFilter: 0
+  m_soundSlide: 0
+  m_resetRowOne: 0
+  m_resetRowTwo: 0
+  m_resetRowThree: 0
+  m_resetRowFour: 0
+  m_resetRowFive: 0
+  m_resetRowSix: 0
+  m_resetRowSeven: 0
+  m_resetRowEight: 0
+  m_resetRowNine: 0
 --- !u!4 &1991179009
 Transform:
   m_ObjectHideFlags: 0
