@@ -128,7 +128,9 @@ public class worldManager : MonoBehaviour {
 	// Function to initiate new dynamic objects
 	private void instantiateObjects() {
 			for (int i = 0; i < m_maxNumberOfObjects; i++) {
-			GameObject obj = (GameObject)Instantiate(cubeBody);
+			Vector3 randomPos = (Vector3)Random.insideUnitCircle * 10; 	
+			randomPos += cubeBody.transform.position;
+			GameObject obj = (GameObject)Instantiate(cubeBody, randomPos, cubeBody.transform.rotation);
 			obj.SetActive(false); 
 			m_instancedObjects.Add(obj);
 		}
