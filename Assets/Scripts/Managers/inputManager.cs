@@ -56,10 +56,8 @@ public class inputManager : MonoBehaviour
     // -------------------------------------
     void Update()
     {
-
         // Listen for new inputs
         fetchData();
-
     }
 
 
