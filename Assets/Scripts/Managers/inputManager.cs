@@ -8,7 +8,7 @@ public class inputManager : MonoBehaviour
 
     // public variables --------------------
     public float m_PPsaturation;                                // Saturation of colors in the scene
-    public float m_PPmotionBlur;                                // Chromatic Aberration effect
+    public float m_PPchromaticAberration;                       // Chromatic Aberration effect
     public float m_PPvignette;                                  // Vignette effect value
 
     public float m_lightIntensity;                              // Lights intensity in the scene
@@ -90,7 +90,7 @@ public class inputManager : MonoBehaviour
 
         // Post Processing Data
         m_PPsaturation = MidiMaster.GetKnob(9);
-		m_PPmotionBlur = MidiMaster.GetKnob(10);
+		m_PPchromaticAberration = MidiMaster.GetKnob(10);
         m_PPvignette = MidiMaster.GetKnob(11);
 
         // Reset BTN

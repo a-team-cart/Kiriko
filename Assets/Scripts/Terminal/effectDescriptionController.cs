@@ -28,7 +28,8 @@ public class effectDescriptionController : MonoBehaviour {
 
 		// Update changes
 		m_text.sizeDelta = new Vector2 (m_textWidth, 76);
-		m_line.sizeDelta = new Vector2 (m_lineWidth, 1);
+		if (m_line != null)
+			m_line.sizeDelta = new Vector2 (m_lineWidth, 1);
 		
 	}
 	
@@ -52,7 +53,7 @@ public class effectDescriptionController : MonoBehaviour {
 	private void activateDescription() {
 
 		// Change the width of the line
-		if (m_lineWidth < m_lineMaxWidth) {
+		if (m_line != null && m_lineWidth < m_lineMaxWidth) {
 			m_lineWidth += m_animationSpeed;
 			
 			// Update changes
@@ -73,7 +74,7 @@ public class effectDescriptionController : MonoBehaviour {
 	private void desableDescription() {
 
 		// Change the width of the line
-		if (m_lineWidth > 0f) {
+		if (m_line != null && m_lineWidth > 0f) {
 			m_lineWidth -= m_animationSpeed;
 			
 			// Update changes
