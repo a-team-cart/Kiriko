@@ -16,13 +16,17 @@ public class terminalManager : MonoBehaviour {
 	public GameObject[] m_lightDescriptions;
 	public GameObject[] m_soundDescriptions;
 	public GameObject[] m_ppDescriptions;
-
+	[Header("Two main panels")]
+	public GameObject m_knobPanel;
+	public GameObject m_sliderPanel;
 
 	// private variables -------------------
 	private float[] m_objectValues;
 	private float[] m_lightValues;
 	private float[] m_soundValues;
 	private float[] m_ppValues;
+	private bool m_knobActivated = false;
+	private bool m_sliderActivated = false;
 
 
 
@@ -62,6 +66,17 @@ public class terminalManager : MonoBehaviour {
 
 		// Check Activity
 		listen();
+
+		// Activate a panel on user's inputs
+		if (m_knobActivated) { 
+			activateKnobs();
+			m_knobActivated = false;
+		}
+
+		if (m_sliderActivated) {
+			activateSliders();
+			m_sliderActivated = false;
+		}
 
 
 		
@@ -111,6 +126,8 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				// Show the correct panel
+				m_knobActivated = true;
 				// Record the new value
 				m_objectValues[i] = m_objectEffects[i].value;
 			}
@@ -122,6 +139,8 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				// Show the correct panel
+				m_knobActivated = true;
 				// Record the new value
 				m_lightValues[i] = m_lightEffects[i].value;
 			}
@@ -133,20 +152,39 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				// Show the correct panel
+				m_sliderActivated = true;
 				// Record the new value
 				m_soundValues[i] = m_soundEffects[i].value;
 			}
 		}
 
 		// Check if the value change for all object effects
-		for(int i = 0; i < m_soundEffects.Length; i++) {
-			if(m_soundEffects[i].value != m_soundValues[i]) {
+		for(int i = 0; i < m_ppEffects.Length; i++) {
+			if(m_ppEffects[i].value != m_ppValues[i]) {
 				// Activate the corrrect description and set the timer
-				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
-				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
+				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				// Show the correct panel
+				m_sliderActivated = true;
 				// Record the new value
-				m_soundValues[i] = m_soundEffects[i].value;
+				m_ppValues[i] = m_ppEffects[i].value;
 			}
 		}
+	}
+	
+
+	// Function to activate the knob panel ------------------------------------------------------------------
+	private void activateKnobs() {
+		// Activate animation and set the timer to 0f
+		m_knobPanel.GetComponent<panelController>().m_activate = true;
+		m_knobPanel.GetComponent<panelController>().m_timer = 0f;
+	}
+
+	// Function to activate the slider panel ----------------------------------------------------------------
+	private void activateSliders() {
+		// Activate animation and set the timer to 0f
+		m_sliderPanel.GetComponent<panelController>().m_activate = true;
+		m_sliderPanel.GetComponent<panelController>().m_timer = 0f;
 	}
 }
