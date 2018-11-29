@@ -12,6 +12,8 @@ public class effectDescriptionController : MonoBehaviour {
 	public float m_textMaxWidth = 160f;
 	public float m_lineMaxWidth = 235f;
 	public bool m_activate;
+	[HideInInspector]public float m_timer;
+	public float m_timerLimit = 1f;
 
 	// private variables -------------------
 	private float m_textWidth;
@@ -51,6 +53,7 @@ public class effectDescriptionController : MonoBehaviour {
 	// Methods
 	// -------------------------------------
 	private void activateDescription() {
+		m_timer += Time.deltaTime;
 
 		// Change the width of the line
 		if (m_line != null && m_lineWidth < m_lineMaxWidth) {
@@ -67,6 +70,10 @@ public class effectDescriptionController : MonoBehaviour {
 			// Update changes
 			m_text.sizeDelta = new Vector2 (m_textWidth, 76);
 		}
+
+		// Check the timer to close the description
+		if (m_timer > m_timerLimit)
+			m_activate = false;
 
 	}
 
