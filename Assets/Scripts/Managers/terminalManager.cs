@@ -89,7 +89,7 @@ public class terminalManager : MonoBehaviour {
 	private void catchSliderValues() {
 		// Screen the values from input manager
 		// Object Effects
-		/*
+		
 		m_objectEffects[0].value = m_InputManager.GetComponent<inputManager>().m_objectSpawn;
 		m_objectEffects[1].value = m_InputManager.GetComponent<inputManager>().m_objectScale;
 		m_objectEffects[2].value = m_InputManager.GetComponent<inputManager>().m_objectRotation;
@@ -114,7 +114,7 @@ public class terminalManager : MonoBehaviour {
 		m_ppEffects[0].value = m_InputManager.GetComponent<inputManager>().m_PPsaturation;
 		m_ppEffects[1].value = m_InputManager.GetComponent<inputManager>().m_PPchromaticAberration;
 		m_ppEffects[2].value = m_InputManager.GetComponent<inputManager>().m_PPvignette;
-		*/
+		
 	}
 
 
@@ -179,6 +179,9 @@ public class terminalManager : MonoBehaviour {
 		// Activate animation and set the timer to 0f
 		m_knobPanel.GetComponent<panelController>().m_activate = true;
 		m_knobPanel.GetComponent<panelController>().m_timer = 0f;
+		// Get the good panel in front
+		m_knobPanel.GetComponent<panelController>().m_Index = 1;
+		m_sliderPanel.GetComponent<panelController>().m_Index = 0;
 	}
 
 	// Function to activate the slider panel ----------------------------------------------------------------
@@ -186,5 +189,8 @@ public class terminalManager : MonoBehaviour {
 		// Activate animation and set the timer to 0f
 		m_sliderPanel.GetComponent<panelController>().m_activate = true;
 		m_sliderPanel.GetComponent<panelController>().m_timer = 0f;
+		// Get the good panel in front
+		m_sliderPanel.GetComponent<panelController>().m_Index = 1;
+		m_knobPanel.GetComponent<panelController>().m_Index = 0;
 	}
 }

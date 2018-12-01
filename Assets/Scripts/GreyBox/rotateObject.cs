@@ -6,6 +6,7 @@ public class rotateObject : MonoBehaviour {
 
 	// public variables ---------------------
 	public float m_speed;
+	public bool m_zAxe;
 
 	// private variables --------------------
 
@@ -20,8 +21,11 @@ public class rotateObject : MonoBehaviour {
 	// Update is called once per frame
 	// --------------------------------------
 	void Update () {
-		gameObject.transform.Rotate(0, m_speed, 0);
+		if (!m_zAxe)
+			gameObject.transform.Rotate(0, m_speed, 0);
 		
+		if (m_zAxe)
+			gameObject.transform.Rotate(0, 0, m_speed);
 	}
 
 	// --------------------------------------

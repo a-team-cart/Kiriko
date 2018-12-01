@@ -8,6 +8,7 @@ public class panelController : MonoBehaviour {
 	public bool m_activate;
 	[HideInInspector]public float m_timer;
 	public float m_timerLimit = 5f;
+	public int m_Index;
 
 	// private variables -------------------
 	private float m_panelWidth;
@@ -56,6 +57,9 @@ public class panelController : MonoBehaviour {
 			// Update changes
 			m_rt.localScale = new Vector3 (m_panelWidth, 1f, 1f);
 		}
+
+		// Show the panel in Front
+		transform.SetSiblingIndex(m_Index);
 
 		// Check the timer to close the panel
 		if (m_timer > m_timerLimit)
