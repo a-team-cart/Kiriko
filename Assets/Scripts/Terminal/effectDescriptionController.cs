@@ -9,9 +9,11 @@ public class effectDescriptionController : MonoBehaviour {
 	public RectTransform m_line;
 	[Space(10)]
 	public float m_animationSpeed = 15f;
+	public float m_lineAnimation = 0.5f;
 	public float m_textMaxWidth = 160f;
-	public float m_lineMaxWidth = 235f;
+	public float m_lineMaxWidth = 1;
 	public bool m_activate;
+	[HideInInspector]public bool m_valueIsChanging = false;
 	[HideInInspector]public float m_timer;
 	public float m_timerLimit = 1f;
 
@@ -31,7 +33,7 @@ public class effectDescriptionController : MonoBehaviour {
 		// Update changes
 		m_text.sizeDelta = new Vector2 (m_textWidth, 76);
 		if (m_line != null)
-			m_line.sizeDelta = new Vector2 (m_lineWidth, 1);
+			m_line.localScale = new Vector3 (m_lineWidth, 1, 1);
 		
 	}
 	
@@ -57,10 +59,14 @@ public class effectDescriptionController : MonoBehaviour {
 
 		// Change the width of the line
 		if (m_line != null && m_lineWidth < m_lineMaxWidth) {
-			m_lineWidth += m_animationSpeed;
+			m_lineWidth += m_lineAnimation;
 			
 			// Update changes
-			m_line.sizeDelta = new Vector2 (m_lineWidth, 1);
+			m_line.localScale = new Vector3 (m_lineWidth, 1, 1);
+		// Make sure it doesn't go over 1
+		} else if(m_line != null) {
+			m_lineWidth = m_lineMaxWidth;
+			m_line.localScale = new Vector3 (m_lineWidth, 1, 1);
 		}
 
 		// Change the width of the text
@@ -82,10 +88,14 @@ public class effectDescriptionController : MonoBehaviour {
 
 		// Change the width of the line
 		if (m_line != null && m_lineWidth > 0f) {
-			m_lineWidth -= m_animationSpeed;
+			m_lineWidth -= m_lineAnimation;
 			
 			// Update changes
-			m_line.sizeDelta = new Vector2 (m_lineWidth, 1);
+			m_line.localScale = new Vector3 (m_lineWidth, 1, 1);
+		// Make sure it doesn't go under 0
+		} else if(m_line != null) {
+			m_lineWidth = 0f;
+			m_line.localScale = new Vector3 (m_lineWidth, 1, 1);
 		}
 
 		// Change the width of the text
