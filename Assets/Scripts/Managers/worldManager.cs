@@ -27,11 +27,12 @@ public class worldManager : MonoBehaviour {
 	public int m_maxNumberOfObjects = 100;
 	public int m_objectIndex;
 	public List<GameObject> m_instancedObjects = new List<GameObject>();
-	public float thrust = 1.0f;
+	public float thrust = 0.1f;
 
 	//chaning object porperties
 	public float m_objectSize;
 	public Material[] m_objectShader;
+	private Vector3[] randomRotation;
 
 	//lights
 	public GameObject[] m_allOfTheLights;
@@ -111,6 +112,8 @@ public class worldManager : MonoBehaviour {
 		m_objectSize = 30;
 
 		objectIsDestroyed = new bool[m_maxNumberOfObjects];
+
+		randomRotation = new Vector3[m_maxNumberOfObjects];
 	}
 
 	// Function to change the weather
@@ -140,9 +143,11 @@ public class worldManager : MonoBehaviour {
 			float xRange = Random.Range(-m_spawnRange,m_spawnRange);
 			float yRange = Random.Range(-m_spawnRange,m_spawnRange);
 			float zRange = Random.Range(-m_spawnRange,m_spawnRange);
+			randomRotation[i] = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
+			Debug.Log(randomRotation[i]);
 			GameObject obj = (GameObject)Instantiate(mineral[Random.Range (0,mineral.Length)], new Vector3(xRange,yRange,zRange), Random.rotation);
 			obj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
-			obj.GetComponent<Rigidbody>().AddTorque(transform.forward * thrust);
+			// obj.GetComponent<Rigidbody>().AddTorque(randomRotation[i] * thrust);
 			obj.SetActive(false); 
 			m_instancedObjects.Add(obj);
 		}
@@ -160,7 +165,7 @@ public class worldManager : MonoBehaviour {
 				// Vector3 randomPos = (Vector3)Random.insideUnitCircle * m_spawnRange; 
 				// m_instancedObjects[i].transform.position = randomPos;
 				m_instancedObjects[j].SetActive(true); 
-				// m_instancedObjects[j].GetComponent<Rigidbody>().AddTorque(transform.forward * thrust);
+				m_instancedObjects[j].GetComponent<Rigidbody>().AddTorque(randomRotation[j] * thrust);
 			}
 		}
 
