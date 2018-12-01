@@ -126,10 +126,14 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = true;
 				// Show the correct panel
 				m_knobActivated = true;
 				// Record the new value
 				m_objectValues[i] = m_objectEffects[i].value;
+			} else {
+				// Tell the object that the value is not changing at the moment
+				m_objectDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = false;
 			}
 		}
 
@@ -139,10 +143,14 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = true;
 				// Show the correct panel
 				m_knobActivated = true;
 				// Record the new value
 				m_lightValues[i] = m_lightEffects[i].value;
+			} else {
+				// Tell the object that the value is not changing at the moment
+				m_lightDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = false;
 			}
 		}
 
@@ -152,10 +160,14 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = true;
 				// Show the correct panel
 				m_sliderActivated = true;
 				// Record the new value
 				m_soundValues[i] = m_soundEffects[i].value;
+			} else {
+				// Tell the object that the value is not changing at the moment
+				m_soundDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = false;
 			}
 		}
 
@@ -165,11 +177,15 @@ public class terminalManager : MonoBehaviour {
 				// Activate the corrrect description and set the timer
 				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_activate = true;
 				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_timer = 0.0f;
+				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = true;
 				// Show the correct panel
 				m_sliderActivated = true;
 				// Record the new value
 				m_ppValues[i] = m_ppEffects[i].value;
-			}
+			} else {
+				// Tell the object that the value is not changing at the moment
+				m_ppDescriptions[i].GetComponent<effectDescriptionController>().m_valueIsChanging = false;
+			} 
 		}
 	}
 	
