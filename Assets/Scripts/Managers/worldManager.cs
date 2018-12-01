@@ -338,20 +338,20 @@ public class worldManager : MonoBehaviour {
 
 
 		//------------------VALUE SCALING
-		scaleAndAttachRounded(m_midiObjectIndex,m_objectIndex,0, m_maxNumberOfObjects);
-		scaleAndAttachRounded(m_midiObjectShader,m_shaderIndex,0,m_objectShader.Length);
-		scaleAndAttach(m_midiObjectScale,m_objectSize,0.0f,100.0f);
-		scaleAndAttach(m_midiObjectGravity,gravityShift,-1.0f,1.0f);
-		scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
+		m_objectIndex=scaleAndAttachRounded(m_midiObjectIndex,m_objectIndex,0, m_maxNumberOfObjects);
+		m_shaderIndex=scaleAndAttachRounded(m_midiObjectShader,m_shaderIndex,0,m_objectShader.Length);
+		m_objectSize=scaleAndAttach(m_midiObjectScale,m_objectSize,0.0f,100.0f);
+		gravityShift=scaleAndAttach(m_midiObjectGravity,gravityShift,-1.0f,1.0f);
+		thrust=scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
 
-		scaleAndAttach(m_midiLightIntensity,m_lightBrightness,0.0f,100.0f);
-		scaleAndAttach(m_midiLightHue,m_lightControlHue,0.0f,1.0f);
-		scaleAndAttach(m_midiLightSaturation,m_lightControlSaturation,0.0f,1.0f);
-		scaleAndAttach(m_midiLightValue,m_lightControlValue,0.0f,1.0f);
+		m_lightBrightness=scaleAndAttach(m_midiLightIntensity,m_lightBrightness,0.0f,100.0f);
+		m_lightControlHue=scaleAndAttach(m_midiLightHue,m_lightControlHue,0.0f,1.0f);
+		m_lightControlSaturation=scaleAndAttach(m_midiLightSaturation,m_lightControlSaturation,0.0f,1.0f);
+		m_lightControlValue=scaleAndAttach(m_midiLightValue,m_lightControlValue,0.0f,1.0f);
 
-		scaleAndAttach(m_midiPsaturation,m_saturationValue,-200.0f,200.0f);
-		scaleAndAttach(m_midiPchromatic,m_chromaticValue,0.0f,30.0f);
-		scaleAndAttach(m_midiPvignette,m_vignetteValue,0.0f,1.0f);
+		m_saturationValue=scaleAndAttach(m_midiPsaturation,m_saturationValue,-200.0f,200.0f);
+		m_chromaticValue=scaleAndAttach(m_midiPchromatic,m_chromaticValue,0.0f,30.0f);
+		m_vignetteValue=scaleAndAttach(m_midiPvignette,m_vignetteValue,0.0f,1.0f);
 
 		// scaleAndAttach();
 		// scaleAndAttach();
@@ -377,16 +377,19 @@ public class worldManager : MonoBehaviour {
 
 	}
 
-	private void scaleAndAttach(float midiObject,float worldObject,float scaleMin, float scaleMax){
+	private float scaleAndAttach(float midiObject,float worldObject,float scaleMin, float scaleMax){
 		midiObject = scale(0.0f,1.0f,scaleMin,scaleMax,midiObject);
 		worldObject = midiObject;
+		return worldObject;
 		// Debug.Log(midiObject + "is :" + worldObject);
 	}
 
-	private void scaleAndAttachRounded(float midiObject,float worldObject,int scaleMin, int scaleMax){
+	private int scaleAndAttachRounded(float midiObject,int worldObject,int scaleMin, int scaleMax){
 		midiObject = scale(0.0f,1.0f,scaleMin,scaleMax,midiObject);
 		int roundedObject = Mathf.RoundToInt(midiObject);
 		worldObject = roundedObject;
+		return worldObject;
+		// return;
 		// Debug.Log(midiObject + "is :" + roundedObject);
 	}
 
