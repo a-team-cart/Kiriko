@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class worldManager : MonoBehaviour {
 
 	// public variables --------------------
 	public GameObject m_InputManager;
+	public GameObject m_MainCamera;
 	public Vector3 m_VRplayerPos;
 	public GameObject[] m_dynamicObjects;
 	public bool m_playerInSpace;
@@ -45,6 +47,16 @@ public class worldManager : MonoBehaviour {
 	public float m_lightControlSaturation;
 	public float m_lightControlValue;
 	public Color m_lightColor;
+
+	//post processing stack
+	private PostProcessVolume volume;
+	Vignette m_vignette;
+	ColorGrading m_saturation;
+	ChromaticAberration m_chromatic;
+	public float m_vignetteValue;
+	public float m_saturationValue;
+	public float m_chromaticValue;
+
 
 	//timescale
 	public float timeModifier;
@@ -94,6 +106,9 @@ public class worldManager : MonoBehaviour {
 		//change light properties
 		changeLightProperties();
 
+		//post processing stack
+		changePostProcessing();
+
 		//midi
 		// attachToMidi();
 
@@ -114,6 +129,27 @@ public class worldManager : MonoBehaviour {
 		objectIsDestroyed = new bool[m_maxNumberOfObjects];
 
 		randomRotation = new Vector3[m_maxNumberOfObjects];
+
+		volume = m_MainCamera.GetComponent<PostProcessVolume>();
+		volume.profile.TryGetSettings(out m_vignette);
+		volume.profile.TryGetSettings(out m_saturation);
+		volume.profile.TryGetSettings(out m_chromatic);
+	}
+
+	//changes the pst processing stack at runtime
+	private void changePostProcessing() {
+		 // later in this class during handling and changing
+		m_vignette.enabled.value = true;
+		m_vignetteValue = Mathf.Clamp(m_vignetteValue, 0.0f, 1.0f);
+		m_vignette.intensity.value = m_vignetteValue;
+		
+		m_chromatic.enabled.value = true;
+		m_chromaticValue = Mathf.Clamp(m_chromaticValue, 0.0f, 30.0f);
+		m_chromatic.intensity.value = m_chromaticValue;
+		
+		m_saturation.enabled.value = true;
+		m_saturationValue = Mathf.Clamp(m_saturationValue, -200.0f, 200.0f);
+		m_saturation.saturation.value = m_saturationValue;
 	}
 
 	// Function to change the weather
