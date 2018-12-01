@@ -27,22 +27,23 @@ public class worldManager : MonoBehaviour {
 	public GameObject[] mineralFractured;
 	private bool[] objectIsDestroyed;
 	public int m_maxNumberOfObjects = 100;
-	public int m_objectIndex;
+	public int m_objectIndex = 0;
 	public List<GameObject> m_instancedObjects = new List<GameObject>();
-	public float thrust = 0.1f;
+	public float thrust = 0.0001f;
 
 	//chaning object porperties
 	public float m_objectSize;
 	public Material[] m_objectShader;
+	public int m_shaderIndex;
 	private Vector3[] randomRotation;
 
 	//lights
 	public GameObject[] m_allOfTheLights;
 	Light[] m_allOfTheLightsLightComponent;
 	public float m_lightBrightness;
-	public float m_lightHue;
-	public float m_lightSaturation;
-	public float m_lightValue;
+	private float m_lightHue;
+	private float m_lightSaturation;
+	private float m_lightValue;
 	public float m_lightControlHue;
 	public float m_lightControlSaturation;
 	public float m_lightControlValue;
@@ -60,6 +61,8 @@ public class worldManager : MonoBehaviour {
 
 	//timescale
 	public float timeModifier;
+	public float deltaTime;
+	public float fps;
 
 	//player relocate
 	public Vector3 m_originalPosition;
@@ -90,6 +93,8 @@ public class worldManager : MonoBehaviour {
 	// Update is called once per frame
 	// -------------------------------------
 	void Update () {
+		//fps counter
+		fpsCounter();
 
 		//ChangeGravity
 		changeGravity();
@@ -110,7 +115,7 @@ public class worldManager : MonoBehaviour {
 		changePostProcessing();
 
 		//midi
-		// attachToMidi();
+		attachToMidi();
 
 		
 	}
@@ -180,7 +185,7 @@ public class worldManager : MonoBehaviour {
 			float yRange = Random.Range(-m_spawnRange,m_spawnRange);
 			float zRange = Random.Range(-m_spawnRange,m_spawnRange);
 			randomRotation[i] = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
-			Debug.Log(randomRotation[i]);
+			// Debug.Log(randomRotation[i]);
 			GameObject obj = (GameObject)Instantiate(mineral[Random.Range (0,mineral.Length)], new Vector3(xRange,yRange,zRange), Random.rotation);
 			obj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
 			// obj.GetComponent<Rigidbody>().AddTorque(randomRotation[i] * thrust);
@@ -212,14 +217,16 @@ public class worldManager : MonoBehaviour {
 			if(objectIsDestroyed[i] == false){
 				objectIsDestroyed[i] = true;
 				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
+				if(fps > 45){
 				GameObject brokenObj = (GameObject)Instantiate(mineralFractured[Random.Range (0,mineralFractured.Length)], new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), m_instancedObjects[i].transform.rotation);
 				brokenObj.transform.localScale =  m_instancedObjects[i].transform.localScale/5;
 				// brokenObj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
 				Renderer[] children = brokenObj.GetComponentsInChildren<Renderer> ();
 				foreach(Renderer rend in children){
-					rend.material = m_objectShader[Random.Range (0,m_objectShader.Length)];
+					rend.material = m_objectShader[m_shaderIndex];
 				}
 				Destroy(brokenObj, 10.0f);
+				}
 				
 			}
 		}
@@ -253,9 +260,9 @@ public class worldManager : MonoBehaviour {
 	private void changeLightProperties(){
 		//constrain the light intensity
 		m_lightBrightness = Mathf.Clamp(m_lightBrightness, 0.0f,100.0f);
-		m_lightControlHue = Mathf.Clamp(m_lightControlHue, 0.0f,255.0f);
-		m_lightControlSaturation = Mathf.Clamp(m_lightControlSaturation, 0.0f,255.0f);
-		m_lightControlValue = Mathf.Clamp(m_lightControlValue, 0.0f,255.0f);
+		m_lightControlHue = Mathf.Clamp(m_lightControlHue, 0.0f,1.0f);
+		m_lightControlSaturation = Mathf.Clamp(m_lightControlSaturation, 0.0f,1.0f);
+		m_lightControlValue = Mathf.Clamp(m_lightControlValue, 0.0f,1.0f);
 
 		for(int i = 0; i < m_allOfTheLightsLightComponent.Length; i++){
 			Color.RGBToHSV(m_allOfTheLightsLightComponent[i].color, out m_lightHue, out m_lightSaturation, out m_lightValue);
@@ -309,26 +316,78 @@ public class worldManager : MonoBehaviour {
 
 		//remapped values for midi between 0 & 1
 		
-		//-----object spawn
+		//-----object 
 		float m_midiObjectIndex = m_InputManager.GetComponent<inputManager>().m_objectSpawn;
-		m_midiObjectIndex = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectIndex);
-		int roundedObjectIndex = Mathf.RoundToInt(m_midiObjectIndex);
-		m_objectIndex = roundedObjectIndex;
-		// Debug.Log(m_objectIndex);
+		float m_midiObjectScale = m_InputManager.GetComponent<inputManager>().m_objectScale;
+		float m_midiObjectGravity = m_InputManager.GetComponent<inputManager>().m_objectGravity;
+		float m_midiObjectShader = m_InputManager.GetComponent<inputManager>().m_objectMaterial;
+		float m_midiObjectRotation = m_InputManager.GetComponent<inputManager>().m_objectRotation;
+
+		//----light
+		float m_midiLightIntensity = m_InputManager.GetComponent<inputManager>().m_lightIntensity;
+		float m_midiLightHue = m_InputManager.GetComponent<inputManager>().m_lightHue;
+		float m_midiLightSaturation = m_InputManager.GetComponent<inputManager>().m_lightSaturation;		
+		float m_midiLightValue = m_InputManager.GetComponent<inputManager>().m_lightValue;
+
+		//----postprocessing
+		float m_midiPsaturation = m_InputManager.GetComponent<inputManager>().m_PPsaturation;
+		float m_midiPchromatic = m_InputManager.GetComponent<inputManager>().m_PPchromaticAberration;		
+		float m_midiPvignette = m_InputManager.GetComponent<inputManager>().m_PPvignette;
+		// float m_midi = m_InputManager.GetComponent<inputManager>().m_objectGravity;
+
+
+
+		//------------------VALUE SCALING
+		scaleAndAttachRounded(m_midiObjectIndex,m_objectIndex,0, m_maxNumberOfObjects);
+		scaleAndAttachRounded(m_midiObjectShader,m_shaderIndex,0,m_objectShader.Length);
+		scaleAndAttach(m_midiObjectScale,m_objectSize,0.0f,100.0f);
+		scaleAndAttach(m_midiObjectGravity,gravityShift,-1.0f,1.0f);
+		scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
+
+		scaleAndAttach(m_midiLightIntensity,m_lightBrightness,0.0f,100.0f);
+		scaleAndAttach(m_midiLightHue,m_lightControlHue,0.0f,1.0f);
+		scaleAndAttach(m_midiLightSaturation,m_lightControlSaturation,0.0f,1.0f);
+		scaleAndAttach(m_midiLightValue,m_lightControlValue,0.0f,1.0f);
+
+		scaleAndAttach(m_midiPsaturation,m_saturationValue,-200.0f,200.0f);
+		scaleAndAttach(m_midiPchromatic,m_chromaticValue,0.0f,30.0f);
+		scaleAndAttach(m_midiPvignette,m_vignetteValue,0.0f,1.0f);
+
+		// scaleAndAttach();
+		// scaleAndAttach();
+		// scaleAndAttach();
+		// scaleAndAttach();
+
+		// m_midiObjectIndex = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectIndex);
+		// int roundedObjectIndex = Mathf.RoundToInt(m_midiObjectIndex);
+		// m_objectIndex = roundedObjectIndex;
 
 		//-----object scale
-		float m_midiObjectScale = m_InputManager.GetComponent<inputManager>().m_objectScale;
-		m_midiObjectScale = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectScale);
-		// int roundedObjectScale = Mathf.RoundToInt(m_midiObjectScale);
-		m_objectSize = m_midiObjectScale;
+		// m_midiObjectScale = scale(0.0f,1.0f,0.0f,100.0f,m_midiObjectScale);
+		// m_objectSize = m_midiObjectScale;
 		// Debug.Log(m_objectIndex);
 
 		//-----object gravity
-		float m_midiObjectGravity = m_InputManager.GetComponent<inputManager>().m_objectGravity;
-		m_midiObjectGravity = scale(0.0f,1.0f,-1.0f,1.0f,m_midiObjectGravity);
-		gravityShift = m_midiObjectGravity;
+		// m_midiObjectGravity = scale(0.0f,1.0f,-1.0f,1.0f,m_midiObjectGravity);
+		// gravityShift = m_midiObjectGravity;
 		// Debug.Log(m_objectIndex);
 
+
+
+
+	}
+
+	private void scaleAndAttach(float midiObject,float worldObject,float scaleMin, float scaleMax){
+		midiObject = scale(0.0f,1.0f,scaleMin,scaleMax,midiObject);
+		worldObject = midiObject;
+		// Debug.Log(midiObject + "is :" + worldObject);
+	}
+
+	private void scaleAndAttachRounded(float midiObject,float worldObject,int scaleMin, int scaleMax){
+		midiObject = scale(0.0f,1.0f,scaleMin,scaleMax,midiObject);
+		int roundedObject = Mathf.RoundToInt(midiObject);
+		worldObject = roundedObject;
+		// Debug.Log(midiObject + "is :" + roundedObject);
 	}
 
 	float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue){
@@ -338,6 +397,12 @@ public class worldManager : MonoBehaviour {
 		float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
 	
 		return(NewValue);
+	}
+
+	private void fpsCounter(){
+		deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+		fps = 1.0f / deltaTime;
+		// Debug.Log("FPS" + fps);
 	}
 
 }
