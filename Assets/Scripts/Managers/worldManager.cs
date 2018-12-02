@@ -340,7 +340,7 @@ public class worldManager : MonoBehaviour {
 		//------------------VALUE SCALING
 		m_objectIndex=scaleAndAttachRounded(m_midiObjectIndex,m_objectIndex,0, m_maxNumberOfObjects);
 		m_shaderIndex=scaleAndAttachRounded(m_midiObjectShader,m_shaderIndex,0,m_objectShader.Length);
-		m_objectSize=scaleAndAttach(m_midiObjectScale,m_objectSize,0.0f,100.0f);
+		m_objectSize=scaleAndAttach(m_midiObjectScale,m_objectSize,30.0f,500.0f);
 		gravityShift=scaleAndAttach(m_midiObjectGravity,gravityShift,-1.0f,1.0f);
 		thrust=scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
 
