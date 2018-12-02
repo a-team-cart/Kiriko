@@ -219,7 +219,7 @@ public class worldManager : MonoBehaviour {
 				Vector3 destroyedObjectPosition = m_instancedObjects[i].transform.position;
 				if(fps > 45){
 				GameObject brokenObj = (GameObject)Instantiate(mineralFractured[Random.Range (0,mineralFractured.Length)], new Vector3(m_instancedObjects[i].transform.position.x,m_instancedObjects[i].transform.position.y,m_instancedObjects[i].transform.position.z), m_instancedObjects[i].transform.rotation);
-				brokenObj.transform.localScale =  m_instancedObjects[i].transform.localScale/5;
+				brokenObj.transform.localScale =  m_instancedObjects[i].transform.localScale/15;
 				// brokenObj.GetComponent<Renderer>().material = m_objectShader[Random.Range (0,m_objectShader.Length)];
 				Renderer[] children = brokenObj.GetComponentsInChildren<Renderer> ();
 				foreach(Renderer rend in children){
@@ -235,7 +235,7 @@ public class worldManager : MonoBehaviour {
 	//change object properties
 	private void changeObjectProperties(){
 		//constrain the object size value
-		m_objectSize = Mathf.Clamp(m_objectSize, 0.0f,100.0f);
+		m_objectSize = Mathf.Clamp(m_objectSize, 30.0f,200.0f);
 
 		for(int i = 0; i < m_instancedObjects.Count; i++){
 			m_instancedObjects[i].transform.localScale = new Vector3(m_objectSize,m_objectSize,m_objectSize);
@@ -340,7 +340,7 @@ public class worldManager : MonoBehaviour {
 		//------------------VALUE SCALING
 		m_objectIndex=scaleAndAttachRounded(m_midiObjectIndex,m_objectIndex,0, m_maxNumberOfObjects);
 		m_shaderIndex=scaleAndAttachRounded(m_midiObjectShader,m_shaderIndex,0,m_objectShader.Length);
-		m_objectSize=scaleAndAttach(m_midiObjectScale,m_objectSize,30.0f,500.0f);
+		m_objectSize=scaleAndAttach(m_midiObjectScale,m_objectSize,30.0f,200.0f);
 		gravityShift=scaleAndAttach(m_midiObjectGravity,gravityShift,-1.0f,1.0f);
 		thrust=scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
 

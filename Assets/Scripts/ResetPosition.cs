@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ResetPosition : MonoBehaviour {
 
-	public float m_spawnRange = 50f;
+	private float m_spawnRange = 150f;
 
-	void start(){
-	}
-
-	void OnTriggetEnter(Collider other){
+	private void OnTriggerEnter(Collider other){
+		// Debug.Log(other);
 		float xRange = Random.Range(-m_spawnRange,m_spawnRange);
 		float yRange = Random.Range(-m_spawnRange,m_spawnRange);
 		float zRange = Random.Range(-m_spawnRange,m_spawnRange);
-		other.gameObject.transform.position = new Vector3(m_spawnRange,100,m_spawnRange);
+		other.gameObject.transform.position = new Vector3(xRange,100,zRange);
 	}
 }
