@@ -260,9 +260,9 @@ public class worldManager : MonoBehaviour {
 	private void changeLightProperties(){
 		//constrain the light intensity
 		m_lightBrightness = Mathf.Clamp(m_lightBrightness, 0.0f,100.0f);
-		m_lightControlHue = Mathf.Clamp(m_lightControlHue, 0.0f,2.0f);
-		m_lightControlSaturation = Mathf.Clamp(m_lightControlSaturation, 0.0f,2.0f);
-		m_lightControlValue = Mathf.Clamp(m_lightControlValue, 0.0f,2.0f);
+		m_lightControlHue = Mathf.Clamp(m_lightControlHue, 0.0f,5.0f);
+		m_lightControlSaturation = Mathf.Clamp(m_lightControlSaturation, 0.0f,5.0f);
+		m_lightControlValue = Mathf.Clamp(m_lightControlValue, 0.0f,5.0f);
 
 		for(int i = 0; i < m_allOfTheLightsLightComponent.Length; i++){
 			Color.RGBToHSV(m_allOfTheLightsLightComponent[i].color, out m_lightHue, out m_lightSaturation, out m_lightValue);
@@ -345,9 +345,9 @@ public class worldManager : MonoBehaviour {
 		thrust=scaleAndAttach(m_midiObjectRotation,thrust,-0.0001f,0.0001f);
 
 		m_lightBrightness=scaleAndAttach(m_midiLightIntensity,m_lightBrightness,0.0f,100.0f);
-		m_lightControlHue=scaleAndAttach(m_midiLightHue,m_lightControlHue,0.0f,2.0f);
-		m_lightControlSaturation=scaleAndAttach(m_midiLightSaturation,m_lightControlSaturation,0.0f,2.0f);
-		m_lightControlValue=scaleAndAttach(m_midiLightValue,m_lightControlValue,0.0f,2.0f);
+		m_lightControlHue=scaleAndAttach(m_midiLightHue,m_lightControlHue,0.0f,5.0f);
+		m_lightControlSaturation=scaleAndAttach(m_midiLightSaturation,m_lightControlSaturation,0.0f,5.0f);
+		m_lightControlValue=scaleAndAttach(m_midiLightValue,m_lightControlValue,0.0f,5.0f);
 
 		m_saturationValue=scaleAndAttach(m_midiPsaturation,m_saturationValue,-200.0f,200.0f);
 		m_chromaticValue=scaleAndAttach(m_midiPchromatic,m_chromaticValue,0.0f,30.0f);
